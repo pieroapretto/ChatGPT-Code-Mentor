@@ -1,0 +1,14 @@
+{
+  "name": "code-mentor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Piero Pretto",
+  "license": "ISC",
+  "dependencies": {
+    "@tectalic/openai": "^0.3.1"
+  }
+}

@@ -1,15 +1,16 @@
 const tectalicOpenai = require('@tectalic/openai').default;
 const config = require('dotenv').config();
 
-async function chatCompletion(input) {
+async function audioTransScriptionGenerator(fileURL) {
   try {
     const res = await tectalicOpenai(process.env.OPENAI_API_KEY)
-    .chatCompletions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: input }]
-    });
+    .audioTranscriptions.create({
+      file: '/Users/pieropretto/Downloads/sample-0.mp3',
+      model: 'whisper-1'
+    })
 
-    console.log(`\n${res.data.choices[0].message.content.trim()}`);
+    console.log(`\n${res.data.text.trim()}`);
+
   } catch (err) {
     if (err?.response) {
       const { status = null, statusText = '' } = err.response;
@@ -21,5 +22,5 @@ async function chatCompletion(input) {
 }
 
 module.exports = {
-  chatCompletion
+  audioTransScriptionGenerator
 };

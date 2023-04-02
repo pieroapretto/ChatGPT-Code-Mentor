@@ -3,7 +3,8 @@ const config = require('dotenv').config();
 
 async function generateImages(input) {
   try {
-    const res = await tectalicOpenai(process.env.OPENAI_API_KEY).imagesGenerations.create({
+    const res = await tectalicOpenai(process.env.OPENAI_API_KEY)
+    .imagesGenerations.create({
       prompt: input,
       size: '256x256',
       n: 3

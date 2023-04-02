@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "chat": "GENERATOR_TYPE=chat node scripts.js",
-    "images": "GENERATOR_TYPE=images node scripts.js"
+    "images": "GENERATOR_TYPE=images node scripts.js",
+    "transcript": "GENERATOR_TYPE=transcript node scripts.js"
   },
   "author": "Piero Pretto",
   "license": "ISC",

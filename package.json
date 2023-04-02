@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "chat": "node scripts/chatGenerator.js",
+    "image-generate": "node scripts/imageGenerator.js"
   },
   "author": "Piero Pretto",
   "license": "ISC",
   "dependencies": {
-    "@tectalic/openai": "^0.3.1"
+    "@tectalic/openai": "^0.3.1",
+    "dotenv": "^16.0.3",
+    "openai": "^3.2.1"
   }
 }

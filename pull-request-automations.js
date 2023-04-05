@@ -2,11 +2,11 @@ const axios = require('axios');
 const fs = require("fs");
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
 
-const postComment = async (token, owner, repo, pr_number, pr_diff) => {
+const postComment = async (token, owner, repo, pr_number, body) => {
   let comment_payload = null;
 
   try {
-    comment_payload = await documentationGenerator(pr_diff, 'Write documentation for this git diff');
+    comment_payload = await documentationGenerator(body, 'Write documentation for this git diff');
   } catch (error) {
     console.error('An error occurred with documentationGenerator', error);
     return;
@@ -36,6 +36,8 @@ const main = async () => {
   // Read the content of the pr_diff.txt file
   const pr_diff = fs.readFileSync("pr_diff.txt", "utf8");
 
+  // clean up
+  const body = JSON.stringify(pr_diff)
 
   // Set your variables
   const token = process.env.GITHUB_TOKEN;
@@ -43,7 +45,7 @@ const main = async () => {
   const pr_number = process.env.PR_NUMBER;
 
   // Post the comment
-  await postComment(token, owner, repo, pr_number, pr_diff);
+  await postComment(token, owner, repo, pr_number, body);
 };
 
 main().catch((err) => new Error(err));

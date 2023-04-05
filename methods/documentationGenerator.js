@@ -16,7 +16,7 @@ async function documentationGenerator(
 
     console.log(`\n\n${cypress_test_recommendations}`);
 
-    return `Documentation suggestion for this pull request:\n${cypress_test_recommendations}\n`;
+    return `Documentation suggestion for this pull request:\n\n${cypress_test_recommendations}`;
 
   } catch (err) {
     if (err?.response) {

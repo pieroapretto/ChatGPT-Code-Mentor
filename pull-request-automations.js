@@ -1,8 +1,10 @@
 const axios = require('axios');
 const fs = require("fs");
+const { documentationGenerator } = require('./methods/documentationGenerator.js');
 
-const postComment = async (token, owner, repo, pr_number, body) => {
+const postComment = async (token, owner, repo, pr_number, pr_diff) => {
   try {
+    const body = await documentationGenerator(pr_diff);
     const response = await axios({
       method: 'POST',
       url: `https://api.github.com/repos/${owner}/${repo}/issues/${pr_number}/comments`,
@@ -25,16 +27,14 @@ const main = async () => {
   // Read the content of the pr_diff.txt file
   const pr_diff = fs.readFileSync("pr_diff.txt", "utf8");
 
-  console.log('pr_diff', pr_diff)
 
   // Set your variables
   const token = process.env.GITHUB_TOKEN;
   const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
   const pr_number = process.env.PR_NUMBER;
-  const body = `Changes in this pull request:\n\`\`\`diff\n${pr_diff}\n\`\`\``;
 
   // Post the comment
-  await postComment(token, owner, repo, pr_number, body);
+  await postComment(token, owner, repo, pr_number, pr_diff);
 };
 
 main().catch((err) => console.error(err));

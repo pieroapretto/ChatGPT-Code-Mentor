@@ -11,7 +11,7 @@ async function documentationGenerator(input) {
 
     const cypress_test_recommendations = res.data.choices[0].message.content.trim();
 
-    console.log(`\n${cypress_test_recommendations}`);
+    console.log(`\n\n${cypress_test_recommendations}`);
 
     return `Documentation suggestion for this pull request:\n${cypress_test_recommendations}\n`;
 

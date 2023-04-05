@@ -8,8 +8,7 @@ async function chatCompletion(input) {
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: input }]
     });
-
-    console.log(`\n${res.data.choices[0].message.content.trim()}`);
+    console.log(`\n\n${res.data.choices[0].message.content.trim()}`);
   } catch (err) {
     if (err?.response) {
       const { status = null, statusText = '' } = err.response;

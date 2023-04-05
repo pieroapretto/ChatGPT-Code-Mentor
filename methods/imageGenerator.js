@@ -10,10 +10,17 @@ async function generateImages(input) {
       n: 3
     });
 
+    console.log(`\n\n`);
     res.data.data.forEach((image) => console.log(image.url));
   } catch (err) {
-    const { status = null, statusText = '' } = err?.response;
-    console.error(`${status} - ${statusText}`);
+    if (err?.response) {
+      const { status = null, statusText = '' } = err.response;
+      console.error(`${status} - ${statusText}`);
+      return err?.response;
+    } else {
+      console.error(err);
+      return err;
+    }
   }
 }
 

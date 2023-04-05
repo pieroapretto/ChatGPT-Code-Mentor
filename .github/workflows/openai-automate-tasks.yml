@@ -28,6 +28,12 @@ jobs:
       run: |
         git fetch origin ${{ github.base_ref }}
         git diff --unified=0 FETCH_HEAD..HEAD > pr_diff.txt
+        pr_diff=$(cat pr_diff.txt)
+        pr_diff="${pr_diff//'%'/'%25'}"
+        pr_diff="${pr_diff//$'\n'/'\\n'}"
+        pr_diff="${pr_diff//$'\r'/'\\r'}"
+        pr_diff="${pr_diff//'"'/'\\"'}"
+        echo "::set-output name=pr_diff::$pr_diff"
 
     - name: Post comment using Node.js script
       run: node pull-request-automations.js

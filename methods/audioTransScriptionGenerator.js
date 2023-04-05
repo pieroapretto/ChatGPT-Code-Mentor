@@ -9,7 +9,7 @@ async function audioTransScriptionGenerator(fileURL) {
       model: 'whisper-1'
     })
 
-    console.log(`\n${res.data.text.trim()}`);
+    console.log(`\n\n${res.data.text.trim()}`);
 
   } catch (err) {
     if (err?.response) {

@@ -1,6 +1,6 @@
 const readline = require('readline');
 
-// Import methods supports by tectalicOpenai
+// Import methods supported by tectalicOpenai
 const { chatCompletion } = require('./methods/chatGenerator.js');
 const { generateImages } = require('./methods/imageGenerator.js');
 const { audioTransScriptionGenerator } = require('./methods/audioTransScriptionGenerator.js');

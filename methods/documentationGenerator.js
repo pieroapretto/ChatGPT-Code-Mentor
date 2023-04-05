@@ -13,7 +13,7 @@ async function documentationGenerator(input) {
 
     console.log(`\n${cypress_test_recommendations}`);
 
-    return `Documentation suggestion for this pull request:\n\`\`\`diff\n${cypress_test_recommendations}\n\`\`\``;
+    return `Documentation suggestion for this pull request:\n${cypress_test_recommendations}\n`;
 
   } catch (err) {
     if (err?.response) {

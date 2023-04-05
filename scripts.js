@@ -5,6 +5,7 @@ const { chatCompletion } = require('./methods/chatGenerator.js');
 const { generateImages } = require('./methods/imageGenerator.js');
 const { audioTransScriptionGenerator } = require('./methods/audioTransScriptionGenerator.js');
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
+const { cypressTestsGenerator } = require('./methods/cypressTestsGenerator.js');
 
 // Create a readline interface for handling user input and output.
 const userInterface = readline.createInterface({
@@ -27,6 +28,9 @@ userInterface.on("line", async (input) => {
       break;
     case 'documentation':
       await documentationGenerator(input);
+      break;
+    case 'cypress':
+      await cypressTestsGenerator(input);
       break;
     case 'chat':
     default:

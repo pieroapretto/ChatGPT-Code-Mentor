@@ -3,8 +3,16 @@ const fs = require("fs");
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
 
 const postComment = async (token, owner, repo, pr_number, pr_diff) => {
+  let comment_payload = null;
+
   try {
-    const body = await documentationGenerator(pr_diff);
+    comment_payload = await documentationGenerator(pr_diff);
+  } catch (error) {
+    console.error('An error occurred with documentationGenerator', error);
+    return;
+  }
+
+  try {
     const response = await axios({
       method: 'POST',
       url: `https://api.github.com/repos/${owner}/${repo}/issues/${pr_number}/comments`,
@@ -13,7 +21,7 @@ const postComment = async (token, owner, repo, pr_number, pr_diff) => {
         'Accept': 'application/vnd.github+json',
       },
       data: {
-        body: JSON.stringify(body)
+        body: JSON.stringify(comment_payload)
       },
     });
 

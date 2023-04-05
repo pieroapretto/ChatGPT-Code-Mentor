@@ -9,7 +9,12 @@ async function documentationGenerator(input) {
       prompt: 'Write documentation for the following JavaScript code: ' + input,
     })
 
-    return res.data.choices[0].message.content.trim();
+    const documentation = res.data.choices[0].text.trim();
+
+    console.log(`\n${documentation}`);
+
+    return res.data.choices[0].text.trim();
+    
   } catch (err) {
     if (err?.response) {
       const { status = null, statusText = '' } = err.response;

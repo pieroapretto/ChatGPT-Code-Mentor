@@ -6,7 +6,7 @@ const postComment = async (token, owner, repo, pr_number, pr_diff) => {
   let comment_payload = null;
 
   try {
-    comment_payload = await documentationGenerator(pr_diff);
+    comment_payload = await documentationGenerator(pr_diff, 'Write documentation for this git diff');
   } catch (error) {
     console.error('An error occurred with documentationGenerator', error);
     return;

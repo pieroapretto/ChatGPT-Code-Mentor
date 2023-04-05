@@ -14,13 +14,15 @@ async function documentationGenerator(input) {
     console.log(`\n${documentation}`);
 
     return res.data.choices[0].text.trim();
-    
+
   } catch (err) {
     if (err?.response) {
       const { status = null, statusText = '' } = err.response;
       console.error(`${status} - ${statusText}`);
+      return err?.response;
     } else {
       console.error(err);
+      return err;
     }
   }
 }

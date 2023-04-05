@@ -3,7 +3,7 @@ name: Automate tasks on pull request with ChatGPT
 on:
   pull_request:
     branches:
-      - feature/automate-with-chatgpt
+      - master
     paths:
       - '**.js'
 

@@ -13,7 +13,7 @@ async function documentationGenerator(input) {
 
     console.log(`\n${documentation}`);
 
-    return res.data.choices[0].text.trim();
+    return `Documentation suggestion for this pull request:\n\`\`\`diff\n${documentation}\n\`\`\``;
 
   } catch (err) {
     if (err?.response) {

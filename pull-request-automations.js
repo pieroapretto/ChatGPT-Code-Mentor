@@ -20,6 +20,7 @@ const postComment = async (token, owner, repo, pr_number, pr_diff) => {
     console.log(`Comment posted successfully: ${response.data.html_url}`);
   } catch (error) {
     console.error(`Failed to post comment: ${error.message}`);
+    return error;
   }
 };
 
@@ -37,4 +38,4 @@ const main = async () => {
   await postComment(token, owner, repo, pr_number, pr_diff);
 };
 
-main().catch((err) => console.error(err));
+main().catch((err) => new Error(err));

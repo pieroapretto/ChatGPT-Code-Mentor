@@ -1,4 +1,5 @@
 const { Configuration, OpenAIApi } = require("openai");
+const { generateMarkdown } = require('../utils/markdown-generation.js');
 
 const configuration = new Configuration({
   apiKey: process.env.AI_KEY,
@@ -15,11 +16,11 @@ async function documentationGenerator(
       messages: [{ role: 'user', content: prompt + ': ' + input }]
     });
 
-    const cypress_test_recommendations = res?.data?.choices[0]?.message?.content?.trim();
+    const pr_summary = res?.data?.choices[0]?.message?.content?.trim();
 
-    console.log(`\n\n${cypress_test_recommendations}`);
-
-    return `Documentation suggestion for this pull request:\n\n${cypress_test_recommendations}`;
+    let markdown = generateMarkdown(`This PR introduces the following changes:\n\n${pr_summary}`);
+    console.log(markdown);
+    return markdown;
 
   } catch (err) {
     if (err?.response) {

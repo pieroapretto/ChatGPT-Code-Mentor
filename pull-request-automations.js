@@ -21,7 +21,7 @@ const postComment = async (token, owner, repo, pr_number, pr_diff) => {
         'Accept': 'application/vnd.github+json',
       },
       data: {
-        body: JSON.stringify(comment_payload)
+        body: comment_payload
       },
     });
 

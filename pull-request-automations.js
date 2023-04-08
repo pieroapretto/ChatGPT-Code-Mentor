@@ -2,6 +2,7 @@ const axios = require('axios');
 const fs = require("fs");
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
 
+// Function to post generated comment on GitHub PR
 const postComment = async (token, owner, repo, pr_number, pr_diff) => {
   let comment_payload = null;
 
@@ -32,6 +33,7 @@ const postComment = async (token, owner, repo, pr_number, pr_diff) => {
   }
 };
 
+// Main function to execute the post comment script on pull request
 const main = async () => {
   // Read the content of the pr_diff.txt file
   const pr_diff = fs.readFileSync("pr_diff.txt", "utf8");
@@ -45,4 +47,5 @@ const main = async () => {
   await postComment(token, owner, repo, pr_number, pr_diff);
 };
 
+// Run the main function and handle any errors
 main().catch((err) => new Error(err));

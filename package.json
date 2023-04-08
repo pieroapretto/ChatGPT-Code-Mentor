@@ -15,6 +15,7 @@
   "dependencies": {
     "@tectalic/openai": "^0.3.1",
     "axios": "^1.3.4",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "openai": "^3.2.1"
   }
 }

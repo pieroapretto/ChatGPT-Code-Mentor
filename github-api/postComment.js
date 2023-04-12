@@ -1,3 +1,4 @@
+const generateMarkdown = require('./utils/markdown-generation.js');
 // Import methods supports by tectalicOpenai
 const { chatCompletion } = require('./methods/chatGenerator.js');
 const { documentationGenerator } = require('./methods/documentationGenerator.js');

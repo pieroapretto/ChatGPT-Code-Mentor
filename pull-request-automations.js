@@ -11,8 +11,8 @@ const main = async () => {
   const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
   const pr_number = process.env.PR_NUMBER;
 
-  // Post the comment to the PR with documentation suggestions
-  await postComment('documentation', token, owner, repo, pr_number, pr_diff, true);
+  // // Post the comment to the PR with documentation suggestions
+  // await postComment('documentation', token, owner, repo, pr_number, pr_diff, true);
   // Post the comment to the PR with cypress tests suggestions
   await postComment('cypress', token, owner, repo, pr_number, pr_diff);
 };

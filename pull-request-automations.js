@@ -7,7 +7,7 @@ const { chatCompletion } = require('./methods/chatGenerator.js');
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
 const { cypressTestsGenerator } = require('./methods/cypressTestsGenerator.js');
 
-const postComment = async (comment_type, token, owner, repo, pr_number, pr_diff, generate_markdown=false) => {
+const postComment = async (comment_type, token, owner, repo, pr_number, pr_diff) => {
   let comment_payload = null;
 
   try {
@@ -16,7 +16,7 @@ const postComment = async (comment_type, token, owner, repo, pr_number, pr_diff,
         comment_payload = await documentationGenerator(pr_diff, 'Write documentation for this git diff');
         break;
       case 'cypress':
-        comment_payload = await cypressTestsGenerator(pr_diff, 'Write Cypress tests for this PR diff');
+        comment_payload = await cypressTestsGenerator(pr_diff, 'Write Cypress.io tests for this PR diff');
         break;
       case 'chat':
       default:
@@ -37,7 +37,7 @@ const postComment = async (comment_type, token, owner, repo, pr_number, pr_diff,
         'Accept': 'application/vnd.github+json',
       },
       data: {
-        body: generate_markdown ? generateMarkdown(comment_payload) : comment_payload
+        body: comment_payload
       },
     });
 
@@ -58,7 +58,7 @@ const main = async () => {
   const pr_number = process.env.PR_NUMBER;
 
   // Post the comment to the PR with documentation suggestions
-  await postComment('documentation', token, owner, repo, pr_number, pr_diff, true);
+  // await postComment('documentation', token, owner, repo, pr_number, pr_diff);
   // Post the comment to the PR with cypress tests suggestions
   await postComment('cypress', token, owner, repo, pr_number, pr_diff);
 };

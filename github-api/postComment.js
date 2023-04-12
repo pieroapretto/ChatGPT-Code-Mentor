@@ -4,6 +4,7 @@ const { chatCompletion } = require('./methods/chatGenerator.js');
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
 const { cypressTestsGenerator } = require('./methods/cypressTestsGenerator.js');
 
+// Function to post generated comment on GitHub PR
 async function postComment (comment_type, token, owner, repo, pr_number, pr_diff, generate_markdown=false) {
   let comment_payload = null;
 
@@ -26,6 +27,9 @@ async function postComment (comment_type, token, owner, repo, pr_number, pr_diff
   }
 
   try {
+    // update comment_payload with markdown if generate_markdown flag is set to true
+    const body = generate_markdown ? generateMarkdown(comment_payload) : comment_payload;
+
     const response = await axios({
       method: 'POST',
       url: `https://api.github.com/repos/${owner}/${repo}/issues/${pr_number}/comments`,
@@ -34,7 +38,7 @@ async function postComment (comment_type, token, owner, repo, pr_number, pr_diff
         'Accept': 'application/vnd.github+json',
       },
       data: {
-        body: generate_markdown ? generateMarkdown(comment_payload) : comment_payload
+        body
       },
     });
 

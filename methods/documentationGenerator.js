@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai");
-const { generateMarkdown } = require('../utils/markdown-generation.js');
 
 const configuration = new Configuration({
   apiKey: process.env.AI_KEY,
@@ -18,9 +17,7 @@ async function documentationGenerator(
 
     const pr_summary = res?.data?.choices[0]?.message?.content?.trim();
 
-    let markdown = generateMarkdown(`This PR introduces the following changes:\n\n${pr_summary}`);
-    console.log(markdown);
-    return markdown;
+    return `This PR introduces the following changes:\n\n${pr_summary}`;
 
   } catch (err) {
     if (err?.response) {

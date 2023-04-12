@@ -6,9 +6,8 @@ async function cypressTestsGenerator(input) {
     const res = await tectalicOpenai(process.env.OPENAI_API_KEY)
     .chatCompletions.create({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: 'Write Cypress tests for the following JavaScript code: ' + input }]
+      messages: [{ role: 'user', content: 'Write Cypress tests for this PR diff: ' + input }]
     });
-
 
     const cypress_test_recommendations = res.data.choices[0].message.content.trim();
     

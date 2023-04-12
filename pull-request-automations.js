@@ -1,36 +1,6 @@
 const axios = require('axios');
 const fs = require("fs");
-const { documentationGenerator } = require('./methods/documentationGenerator.js');
-
-const postComment = async (token, owner, repo, pr_number, pr_diff) => {
-  let comment_payload = null;
-
-  try {
-    comment_payload = await documentationGenerator(pr_diff, 'Write documentation for this git diff');
-  } catch (error) {
-    console.error('An error occurred with documentationGenerator', error);
-    return;
-  }
-
-  try {
-    const response = await axios({
-      method: 'POST',
-      url: `https://api.github.com/repos/${owner}/${repo}/issues/${pr_number}/comments`,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Accept': 'application/vnd.github+json',
-      },
-      data: {
-        body: comment_payload
-      },
-    });
-
-    console.log(`Comment posted successfully: ${response.data.html_url}`);
-  } catch (error) {
-    console.error(`Failed to post comment: ${error.message}`);
-    return error;
-  }
-};
+const postComment = require('./github-api/postComment.js');
 
 const main = async () => {
   // Read the content of the pr_diff.txt file
@@ -41,8 +11,10 @@ const main = async () => {
   const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
   const pr_number = process.env.PR_NUMBER;
 
-  // Post the comment
-  await postComment(token, owner, repo, pr_number, pr_diff);
+  // Post the comment to the PR with documentation suggestions
+  await postComment('documentation', token, owner, repo, pr_number, pr_diff, true);
+  // Post the comment to the PR with cypress tests suggestions
+  await postComment('cypress', token, owner, repo, pr_number, pr_diff);
 };
 
 main().catch((err) => new Error(err));

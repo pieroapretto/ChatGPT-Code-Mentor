@@ -1,8 +1,8 @@
-const generateMarkdown = require('./utils/markdown-generation.js');
+const generateMarkdown = require('/utils/markdown-generation.js');
 // Import methods supports by tectalicOpenai
-const { chatCompletion } = require('./methods/chatGenerator.js');
-const { documentationGenerator } = require('./methods/documentationGenerator.js');
-const { cypressTestsGenerator } = require('./methods/cypressTestsGenerator.js');
+const { chatCompletion } = require('/methods/chatGenerator.js');
+const { documentationGenerator } = require('/methods/documentationGenerator.js');
+const { cypressTestsGenerator } = require('/methods/cypressTestsGenerator.js');
 
 async function postComment (comment_type, token, owner, repo, pr_number, pr_diff, generate_markdown=false) {
   let comment_payload = null;

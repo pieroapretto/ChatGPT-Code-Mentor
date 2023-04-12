@@ -1,7 +1,10 @@
 const axios = require('axios');
 const fs = require("fs");
+const util = require('util');
 
-const generateMarkdown = require('./utils/markdown-generation.js');
+// Sleep function to wait for a specified duration
+const sleep = util.promisify(setTimeout);
+
 // Import methods supports by tectalicOpenai
 const { chatCompletion } = require('./methods/chatGenerator.js');
 const { documentationGenerator } = require('./methods/documentationGenerator.js');
@@ -58,7 +61,11 @@ const main = async () => {
   const pr_number = process.env.PR_NUMBER;
 
   // Post the comment to the PR with documentation suggestions
-  // await postComment('documentation', token, owner, repo, pr_number, pr_diff);
+  await postComment('documentation', token, owner, repo, pr_number, pr_diff);
+
+  // Wait for a specified duration (e.g., 0.5 seconds)
+  await sleep(500);
+
   // Post the comment to the PR with cypress tests suggestions
   await postComment('cypress', token, owner, repo, pr_number, pr_diff);
 };
